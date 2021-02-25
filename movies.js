@@ -1,8 +1,8 @@
 firebase.auth().onAuthStateChanged(async function(users) {
 
     let db = firebase.firestore()
-    letapiKey = 'AIzaSyDFO0ZKopcZR8lsgi0zZDcg6ApAsR7j2dE'
-    let response = await fetch (`https://api.themoviedb.org/3/movie/now_playing?api_key=35e0bb1c2b89da0319ec186e93044950&language=en-US`)
+    let apiKey = '35e0bb1c2b89da0319ec186e93044950'
+    let response = await fetch (`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US`)
     let json = await response.json()
     let movies = json.results
     console.log(movies)
@@ -10,6 +10,7 @@ firebase.auth().onAuthStateChanged(async function(users) {
 // if a user is signed in, show name + sign-out button
 
 if (users) {
+
 // confirm sign-in is in users collection 
 db.collection('users').doc(users.uid).set({
     name: users.displayName,
@@ -41,12 +42,13 @@ console.log('signed out')
 let ui = new firebaseui.auth.AuthUI(firebase.auth())
 
 // FirebaseUI config
-letauthUIConfig = {
+let authUIConfig = {
     signInOptions: [
-        firebase.auth.EmailAuthProvider.Provider_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     signInSuccessURL: 'movies.html'
 }
+
 // FirebaseUI Auth
 ui.start('.sign-in-or-sign-out', authUIConfig)
 }
