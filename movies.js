@@ -58,7 +58,7 @@ for (let i=0; i<movies.length; i++) {
     let movie = movies[i]
 
     // check db for movie watched by signed in user
-    let docRef = await db.collection('watched').doc(`${movie.id}-${users.uid}`).get()
+    let docRef = await db.collection('Watched').doc(`${movie.id}-${users.uid}`).get()
     let watchedMovie = docRef.data()
     let opacityClass = ''
 
@@ -81,12 +81,11 @@ for (let i=0; i<movies.length; i++) {
         movieElement.classList.add('opacity-20')
 
         // assign document ID using movie ID & user ID
-        await db.collection('watched').doc(`${movie.id}-${users.uid}`).set({})
+        await db.collection('Watched').doc(`${movie.id}-${users.uid}`).set({})
         })
     }
 })
 
-  
   // Goal:   Refactor the movies application from last week, so that it supports
   //         user login and each user can have their own watchlist.
   
