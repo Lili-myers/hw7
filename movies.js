@@ -20,10 +20,36 @@ db.collection('users').doc(users.uid).set({
 console.log(`${users.uid}`)
 
 //sign-out
-document.querySelector('.sign-in-or-sign-out').InnerHTML`
+document.querySelector('.sign-in-or-sign-out').InnerHTML = `
+    <a> ${users.displayName} is signed in |</a>
+    <button class = "text-white-500 underline sign-out">Sign Out</button>
+`
+document.querySelector('.sign-out').addEventListener('click', function(event) {
+    console.log('sign out clicked')
+    firebase.auth().signOut()
+    document.location.href = 'movies.html'
+})
+
+// if not signed in, show sign-in 
+
+} else {
+
+// signed out
+console.log('signed out') 
+
+// Initiliaze FirebaseUI Auth
+let ui = new firebaseui.auth.AuthUI(firebase.auth())
+
+// FirebaseUI config
+letauthUIConfig = {
+    signInOptions: [
+        firebase.auth.EmailAuthProvider.Provider_ID
+    ],
+    signInSuccessURL: 'movies.html'
+}
 
 
-
+}
 
 }
 
